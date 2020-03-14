@@ -1,0 +1,40 @@
+server:
+  port: 8301
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    instance-info-replication-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://onion:123456@localhost:8761/register/eureka/
+#      defaultZone: http://localhost:8761/register/eureka/
+
+      #由于我们需要在请求头中携带令牌，所以sensitiveHeaders设置为*，表示不过滤请求头信息，即请求的请求头信息将原封不动的转发出去。此外，因为Zuul已经包含了
+
+
+spring:
+  application:
+    name: onion-gateway
+zuul:
+  routes:
+    auth:
+      path: /auth/**
+      serviceId: onion-auth
+      sensitiveHeaders: "*"
+    system:
+      path: /system/**
+      serviceId: onion-system
+      sensitiveHeaders: "*"
+    test:
+      path: /test/**
+      serviceId: onion-test
+      sensitiveHeaders: "*"
+  ignored-services: "*"
+  retryable: true
+  ribbon:
+    eager-load:
+      enabled: true
+  host:
+    connect-timeout-millis: 5000
+

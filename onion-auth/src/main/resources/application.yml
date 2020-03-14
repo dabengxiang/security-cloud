@@ -1,0 +1,20 @@
+server:
+  port: 8101
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    instance-info-replication-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://onion:123456@localhost:8761/register/eureka/
+#      defaultZone: http://localhost:8761/register/eureka/
+
+spring:
+  application:
+    name: onion-auth
+
+
+
+
+
