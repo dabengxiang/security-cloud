@@ -1,0 +1,28 @@
+server:
+  port: 7070
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    instance-info-replication-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://onion:123456@localhost:8761/register/eureka/
+      #      defaultZone: http://localhost:8761/register/eureka/
+
+      #由于我们需要在请求头中携带令牌，所以sensitiveHeaders设置为*，表示不过滤请求头信息，即请求的请求头信息将原封不动的转发出去。此外，因为Zuul已经包含了
+
+
+spring:
+  application:
+    name: onion-client
+
+
+security:
+  oauth2:
+    client:
+      clientId: onion
+      clientSecret: 123456
+      accessTokenUri: ${TOKEN_URL:http://localhost:8101}/oauth/token
+      userAuthorizationUri: ${USER_AUTH_URL:http://localhost:8101}/oauth/authorize
+      pre-established-redirect-uri: http://localhost:7070/callback

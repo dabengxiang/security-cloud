@@ -15,6 +15,7 @@
         <module>onion-test</module>
         <module>onion-gateway</module>
         <module>onion-server</module>
+        <module>onion-client</module>
     </modules>
 
     <parent>
