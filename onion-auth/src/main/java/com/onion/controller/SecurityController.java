@@ -1,8 +1,7 @@
 package com.onion.controller;
 
-import com.utils.ResultDto;
+import com.onion.utils.ResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

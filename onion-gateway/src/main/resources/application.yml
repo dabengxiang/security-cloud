@@ -30,6 +30,11 @@ zuul:
       path: /test/**
       serviceId: onion-test
       sensitiveHeaders: "*"
+  SendErrorFilter:
+    error:
+      disable: true
+
+
   ignored-services: "*"
   retryable: true
   ribbon:
@@ -37,4 +42,5 @@ zuul:
       enabled: true
   host:
     connect-timeout-millis: 5000
+
 

@@ -1,5 +1,6 @@
 package com.onion.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,17 @@ public class TestController {
     @GetMapping("user")
     public Principal currentUser(Principal principal) {
         return principal;
+    }
+
+    @GetMapping("userRead")
+    @PreAuthorize("hasAuthority('user:read')")
+    public String userRead(){
+        return "userRead";
+    }
+
+    @PreAuthorize("hasAuthority('user:write')")
+    @GetMapping("userWrite")
+    public String userWrite(){
+        return "userWrite";
     }
 }

@@ -1,6 +1,6 @@
 package com.onion.translator;
 
-import com.utils.ResultDto;
+import com.onion.utils.ResultDto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
