@@ -14,10 +14,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 public class OnionResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+
+
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().requestMatchers().antMatchers("/**").and().authorizeRequests().antMatchers("/**").authenticated();
     }
+
+
+
 
 }
 

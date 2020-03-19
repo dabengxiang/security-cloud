@@ -1,9 +1,10 @@
 package onion.controller;
 
+import onion.feign.SystemFeign;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -15,6 +16,9 @@ import java.security.Principal;
 
 @RestController
 public class TestController {
+
+    @Autowired
+    private SystemFeign systemFeign;
 
     @GetMapping("info")
     public String test(){
@@ -40,4 +44,12 @@ public class TestController {
     public String add(){
         return "add";
     }
+
+    @GetMapping("getSystemInfo")
+    public String getSystemInfo(){
+        return systemFeign.userRead();
+    }
+
+
+
 }
