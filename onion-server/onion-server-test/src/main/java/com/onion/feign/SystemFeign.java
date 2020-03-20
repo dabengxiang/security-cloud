@@ -1,4 +1,4 @@
-package onion.feign;
+package com.onion.feign;
 
 import com.onion.entity.OnionFeignConstant;
 import org.springframework.cloud.openfeign.FeignClient;

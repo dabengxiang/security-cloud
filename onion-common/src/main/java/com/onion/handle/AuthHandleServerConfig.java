@@ -28,9 +28,23 @@ public class AuthHandleServerConfig extends ResourceServerConfigurerAdapter {
         }
         if(accessDeniedHandler!=null){
             resources.accessDeniedHandler(accessDeniedHandler);
-
         }
     }
+
+
+//    @Bean
+//    public RequestInterceptor requestInterceptor(){
+//
+//        return new RequestInterceptor() {
+//            @Override
+//            public void apply(RequestTemplate requestTemplate) {
+//                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//                System.out.println(principal);
+//            }
+//        };
+//
+//
+//    }
 
 }
 

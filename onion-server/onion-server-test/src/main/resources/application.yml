@@ -21,4 +21,5 @@ security:
 
 
 
-
+hystrix:
+  shareSecurityContext: true

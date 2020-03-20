@@ -1,6 +1,6 @@
-package onion.controller;
+package com.onion.controller;
 
-import onion.feign.SystemFeign;
+import com.onion.feign.SystemFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
