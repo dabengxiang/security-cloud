@@ -17,9 +17,9 @@ security:
   oauth2:
     resource:
       id:  ${spring.application.name}
-      user-info-uri: http://127.0.0.1:8301/auth/user1
+      user-info-uri: http://127.0.0.1:8301/auth/user
 
 
 
-hystrix:
-  shareSecurityContext: true
+#hystrix:
+#  shareSecurityContext: true
