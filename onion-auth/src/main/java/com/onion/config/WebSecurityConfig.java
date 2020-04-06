@@ -46,7 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authorizeRequests().antMatchers("/oauth/**").authenticated();
 
 
-        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+        http.csrf().disable().authorizeRequests().antMatchers("/captcha","/validate").permitAll()
+                .and().formLogin().and().httpBasic()
+                .and().authorizeRequests().anyRequest().authenticated();
+
+
 
 
     }

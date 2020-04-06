@@ -23,4 +23,8 @@ public class OnionAuthProperties {
 
     private int refreshTokenValiditySeconds = 60*60*24*7;
 
+
+    private CaptchaProperties captchaProperties;
+
+
 }
