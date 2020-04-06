@@ -16,10 +16,11 @@ spring:
 security:
   oauth2:
     resource:
-      id:  ${spring.application.name}
-      user-info-uri: http://127.0.0.1:8301/auth/user
-#      token-info-uri:  http://127.0.0.1:8301/auth/oauth2/token
-
+        token-info-uri: http://127.0.0.1:8301/auth/oauth/check_token
+        id: ${spring.application.name}
+    client:
+      client-id: cong
+      client-secret: 123456
 
 
 

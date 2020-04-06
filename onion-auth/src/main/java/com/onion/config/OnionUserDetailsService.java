@@ -58,6 +58,8 @@ public class OnionUserDetailsService implements UserDetailsService {
         OnionAuthUser onionAuthUser = new OnionAuthUser(systemUser.getUsername(), systemUser.getPassword(),
                 true, true, true, islock, AuthorityUtils.commaSeparatedStringToAuthorityList(menu));
 
+
+
         BeanUtils.copyProperties(systemUser,onionAuthUser);
 
         return onionAuthUser;
