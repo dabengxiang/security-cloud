@@ -2,11 +2,13 @@ package com.onion.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -40,13 +42,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //让检验/oauth/**请求
-        http.csrf().disable().requestMatchers().antMatchers("/oauth/**").and().authorizeRequests().antMatchers("/oauth/**").authenticated();
-        }
+//        http.csrf().disable().requestMatchers().antMatchers("/oauth/**").and()
+//                .authorizeRequests().antMatchers("/oauth/**").authenticated();
+
+
+        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+
+
+    }
+
 
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+//        auth.inMemoryAuthentication().withUser("nba").password("123456").roles("user:read");
         auth.userDetailsService(onionUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -56,4 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
+
 }

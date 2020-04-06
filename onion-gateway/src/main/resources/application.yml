@@ -44,3 +44,12 @@ zuul:
     connect-timeout-millis: 5000
 
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 700
+
+

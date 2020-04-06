@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.onion.mapper.SystemUserMapper">
+    
+    <select id="findByUsername" resultType="com.onion.entity.SystemUser">
+        SELECT
+            u.*, r.ROLE_ID,
+            r.ROLE_NAME,
+            d.DEPT_NAME
+        FROM
+            t_user u
+        LEFT JOIN t_dept d ON u.DEPT_ID = d.DEPT_ID
+        LEFT JOIN t_user_role ur ON ur.USER_ID = u.USER_ID
+        LEFT JOIN t_role r ON r.ROLE_ID = ur.ROLE_ID
+        WHERE
+            userName = #{userName}
+    </select>
+
+</mapper>

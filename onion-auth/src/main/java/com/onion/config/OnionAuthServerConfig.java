@@ -10,14 +10,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -41,11 +44,18 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
         return new RedisTokenStore(redisConnectionFactory);
     }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+
+
+
+
+
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+
+
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -53,11 +63,28 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
     @Autowired
     private OnionAuthProperties onionAuthProperties;
 
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(redisTokenStore()).userDetailsService(userDetailsService)
-                .authenticationManager(authenticationManager).exceptionTranslator(new OnionWebResponseExceptionTranslator());
 
+        endpoints.tokenStore(redisTokenStore()).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
+//        endpoints.tokenStore(redisTokenStore()).authenticationManager(authenticationManager).exceptionTranslator(new OnionWebResponseExceptionTranslator());
+
+    }
+
+
+
+
+
+
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("isAuthenticated()")
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Override
@@ -79,9 +106,9 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
             String[] split = StringUtils.split(onionClientProperties.getGrantType(), ",");
 
 
-                builder.withClient(onionClientProperties.getClient()).secret(passwordEncoder.encode(onionClientProperties.getSecret()))
-                        .authorizedGrantTypes(split)
-                        .scopes("all");
+            builder.withClient(onionClientProperties.getClient()).secret(passwordEncoder.encode(onionClientProperties.getSecret()))
+                    .authorizedGrantTypes(split)
+                    .scopes("all");
 
 
         }

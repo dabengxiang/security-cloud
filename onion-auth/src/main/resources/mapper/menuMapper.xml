@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.onion.mapper.MenuMapper">
+
+
+    <select id="findMenuByUserName" resultType="com.onion.entity.Menu">
+        SELECT DISTINCT
+            perms
+        FROM
+            t_user u
+        LEFT JOIN t_user_role ur ON u.USER_ID = ur.USER_ID
+        LEFT JOIN t_role r ON r.ROLE_ID = ur.ROLE_ID
+        LEFT JOIN t_role_menu rm ON rm.ROLE_ID = r.ROLE_ID
+        LEFT JOIN t_menu m ON rm.MENU_ID = m.MENU_ID
+        WHERE
+            u.USERNAME = #{username}
+AND m.PERMS IS NOT NULL    </select>
+</mapper>
