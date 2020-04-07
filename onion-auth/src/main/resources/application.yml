@@ -41,5 +41,9 @@ mybatis-plus:
     jdbc-type-for-null: null
 
 
+onion:
+  auth:
+    captchaProperties:
+      storeType: redis
 
 

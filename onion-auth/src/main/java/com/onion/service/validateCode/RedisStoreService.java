@@ -4,7 +4,9 @@ import com.onion.properties.OnionAuthProperties;
 import com.onion.service.RedisService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2020/4/7 17:05
  */
 @Service
-@ConditionalOnProperty(prefix = "onion.auth.captchaProperties.storeType",value ={"redis"})
-@EnableConfigurationProperties(OnionAuthProperties.class)
+//@ConditionalOnProperty(prefix = "onion.auth.captchaProperties",name ="storeType",havingValue = "redis")
+@ConditionalOnExpression("'${onion.auth.captchaProperties.storeType}'.equals('redis')")
 public class RedisStoreService implements ValidateCodeStoreService {
 
 

@@ -3,7 +3,10 @@ package com.onion.service.validateCode;
 import com.onion.properties.OnionAuthProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +18,7 @@ import javax.servlet.http.HttpSession;
  * @date 2020/4/6
  */
 @Service
-@ConditionalOnProperty(prefix = "onion.auth.captchaProperties.storeType",value ={"session"})
-@EnableConfigurationProperties(OnionAuthProperties.class)
+@ConditionalOnProperty(prefix = "onion.auth.captchaProperties",name ="storeType",havingValue = "session")
 public class SessionStoreService implements ValidateCodeStoreService {
 
     private final String STORE_KEY = "my_captcha";

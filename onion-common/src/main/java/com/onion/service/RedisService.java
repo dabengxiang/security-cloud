@@ -2,6 +2,7 @@ package com.onion.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: gyc
  * @Date: 2020/4/7 8:45
  */
+
 public class RedisService {
 
     @Autowired
