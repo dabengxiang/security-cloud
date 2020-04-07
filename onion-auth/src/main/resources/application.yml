@@ -29,11 +29,16 @@ spring:
         connection-test-query: select 1
         pool-name: OnionHikariCP
       primary: base
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     jdbc-type-for-null: null
-
 
 
 

@@ -40,6 +40,13 @@ public class CaptchaProperties {
     //过期时间
     private long expire = 60;
 
+    /**
+     * 存储类型
+     * session
+     * redis
+     */
+    private String storeType;
+
 }
 
 
