@@ -1,19 +1,14 @@
 package com.onion.config;
 
-import com.netflix.discovery.converters.Auto;
 import com.onion.properties.OnionAuthProperties;
 import com.onion.properties.OnionClientProperties;
-import com.onion.translator.OnionWebResponseExceptionTranslator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -72,7 +67,6 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
 
         endpoints.tokenStore(redisTokenStore()).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
 //        endpoints.tokenStore(redisTokenStore()).authenticationManager(authenticationManager).exceptionTranslator(new OnionWebResponseExceptionTranslator());
-
     }
 
 
@@ -85,6 +79,7 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("isAuthenticated()")
                 .checkTokenAccess("isAuthenticated()");
+
     }
 
     @Override
