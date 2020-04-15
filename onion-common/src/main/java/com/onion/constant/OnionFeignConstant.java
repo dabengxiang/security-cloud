@@ -1,4 +1,4 @@
-package com.onion.entity;
+package com.onion.constant;
 
 /**
  * @Author: gyc

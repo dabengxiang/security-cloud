@@ -1,6 +1,6 @@
 package com.onion.feign;
 
-import com.onion.entity.OnionFeignConstant;
+import com.onion.constant.OnionFeignConstant;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
