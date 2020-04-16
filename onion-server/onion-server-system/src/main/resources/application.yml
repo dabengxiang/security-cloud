@@ -11,14 +11,6 @@ eureka:
 #      defaultZone: http://localhost:8761/register/eureka/
 
 
-    private String pollName;
-    private Class<? extends DataSource> type;
-    private String driverClassName;
-    private String url;
-    private String username;
-    private String password;
-    private String jndiName;
-
 
 spring:
   application:
@@ -54,4 +46,6 @@ security:
 
 
 
-
+logging:
+  level:
+    com.onion.mapper: debug
