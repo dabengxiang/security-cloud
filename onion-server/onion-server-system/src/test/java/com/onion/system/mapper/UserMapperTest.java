@@ -1,6 +1,8 @@
 package com.onion.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.onion.entity.SystemUser;
 import com.onion.mapper.UserMapper;
 import com.onion.system.BaseTest;
@@ -28,5 +30,15 @@ public class UserMapperTest extends BaseTest {
         List<SystemUser> systemUsers = userMapper.selectList(systemUserQueryWrapper);
 
         System.out.println(systemUsers);
+    }
+
+
+
+    @Test
+    public void findUsersDetail(){
+        Page page = new Page(1,10);
+        IPage<SystemUser> usersDetail = userMapper.findUsersDetail(page, null);
+
+        System.out.println(usersDetail);
     }
 }

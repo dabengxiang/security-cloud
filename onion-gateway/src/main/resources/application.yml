@@ -16,6 +16,8 @@ eureka:
 spring:
   application:
     name: onion-gateway
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 zuul:
   routes:
     auth:
@@ -50,6 +52,6 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 700
+            timeoutInMilliseconds: 3000
 
 

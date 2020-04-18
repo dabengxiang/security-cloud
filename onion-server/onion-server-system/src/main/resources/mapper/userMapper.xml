@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.onion.mapper.UserMapper">
+    <select id="findUsersDetail" resultType="com.onion.entity.SystemUser">
+                SELECT
+            u.user_id userId,
+            u.username,
+            u.email,
+            u.mobile,
+            u. STATUS,
+            u.create_time createTime,
+            u.ssex sex,
+            u.dept_id deptId,
+            u.last_login_time lastLoginTime,
+            u.modify_time modifyTime,
+            u.description,
+            u.avatar,
+            d.dept_name deptName,
+            GROUP_CONCAT(r.role_id) roleId,
+            GROUP_CONCAT(r.ROLE_NAME) roleName
+        FROM
+            t_user u
+        LEFT JOIN t_dept d ON u.DEPT_ID = d.DEPT_ID
+        LEFT JOIN t_user_role ur ON u.USER_ID = ur.USER_ID
+        LEFT JOIN t_role r ON r.ROLE_ID = ur.ROLE_ID
+        GROUP BY
+            u.username,
+            u.user_id,
+            u.email,
+            u.mobile,
+            u. STATUS,
+            u.create_time,
+            u.ssex,
+            u.dept_id,
+            u.last_login_time,
+            u.modify_time,
+            u.description,
+            u.avatar
+    </select>
+</mapper>

@@ -50,15 +50,15 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
 
-        for (RequestMatcher requestMatcher : list) {
-
-            if(requestMatcher.matches(httpServletRequest)){
-                if(!validateCodeStoreService.validate(httpServletRequest,httpServletResponse)){
-                    throw  new ValidateCodeException("验证码错误");
-                }
-
-            }
-        }
+//        for (RequestMatcher requestMatcher : list) {
+//
+//            if(requestMatcher.matches(httpServletRequest)){
+//                if(!validateCodeStoreService.validate(httpServletRequest,httpServletResponse)){
+//                    throw  new ValidateCodeException("验证码错误");
+//                }
+//
+//            }
+//        }
 
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }

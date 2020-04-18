@@ -32,7 +32,7 @@ public class OnionResourceServerConfig extends ResourceServerConfigurerAdapter {
 //    @Bean
 //    public ResourceServerTokenServices tokenService(){
 //        new remove()
-    /*    }*/}
+/*    }*/}
 
 
 
