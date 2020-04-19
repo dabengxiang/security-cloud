@@ -99,11 +99,12 @@ public class OnionAuthServerConfig extends AuthorizationServerConfigurerAdapter 
 
 
             String[] split = StringUtils.split(onionClientProperties.getGrantType(), ",");
+            String[] scopes = StringUtils.split(onionClientProperties.getScope(), ",");
 
 
             builder.withClient(onionClientProperties.getClient()).secret(passwordEncoder.encode(onionClientProperties.getSecret()))
                     .authorizedGrantTypes(split)
-                    .scopes("all");
+                    .scopes(scopes);
 
 
         }

@@ -22,8 +22,13 @@ public class OnionResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().requestMatchers().antMatchers("/**").and().authorizeRequests().antMatchers("/**").authenticated();
-    }
+
+        http.csrf().disable()
+                .requestMatchers().antMatchers("/**")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/api-docs/**").permitAll()
+                .antMatchers("/**").authenticated();    }
 
 
 
