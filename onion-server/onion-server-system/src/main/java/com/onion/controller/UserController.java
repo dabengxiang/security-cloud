@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.security.Principal;
 
 /**
  * @author gyc
@@ -34,6 +35,13 @@ public class UserController {
         IPage<SystemUser> usersDetail = userService.findUsersDetail(pageNo, pageSize, user);
         return ResultDto.success(usersDetail);
     }
+
+
+    @GetMapping("currentUser")
+    public Principal currentUser(Principal principal) {
+        return principal;
+    }
+
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('user:add')")

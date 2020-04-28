@@ -43,14 +43,11 @@ public class SecurityController {
     public ResultDto<String> signup(HttpServletRequest httpServletRequest){
         String authorization  = httpServletRequest.getHeader("Authorization");
         String token = authorization.replace("bearer" , "");
-
         if(consumerTokenServices.revokeToken(token)){
             return ResultDto.success("退出成功");
         }else{
             return ResultDto.failure("退出失败");
-
         }
-
 
     }
 

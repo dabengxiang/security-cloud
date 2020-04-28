@@ -26,6 +26,9 @@
 
     <properties>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <excelkit.version>2.0.71</excelkit.version>
+        <ip2region.version>1.7</ip2region.version>
+
     </properties>
 
     <dependencyManagement>
