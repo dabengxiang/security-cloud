@@ -1,6 +1,8 @@
 package com.onion.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -108,4 +110,21 @@ public class UserService extends ServiceImpl<UserMapper, SystemUser> {
     }
 
 
+    /**
+     * 更新用户最后登录时间
+     * @param currentUsername
+     */
+    public void updateLoginTime(String currentUsername) {
+
+        UpdateWrapper<SystemUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username",currentUsername);
+
+        SystemUser systemUser = new SystemUser();
+        systemUser.setLastLoginTime(new Date());
+
+        userMapper.update(systemUser,new LambdaUpdateWrapper<SystemUser>().eq(SystemUser::getUsername,currentUsername));
+
+
+
+    }
 }

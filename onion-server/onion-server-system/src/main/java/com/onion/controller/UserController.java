@@ -2,9 +2,12 @@ package com.onion.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.onion.entity.LoginLog;
 import com.onion.entity.SystemUser;
 import com.onion.exception.OnionException;
+import com.onion.service.LoginService;
 import com.onion.service.UserService;
+import com.onion.utils.OnionUtils;
 import com.onion.utils.ResultDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
@@ -28,6 +32,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LoginService loginLogService;
+
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('user:view')")
@@ -84,4 +92,21 @@ public class UserController {
             throw new OnionException(message);
         }
     }
+
+
+
+    @GetMapping("success")
+    public void loginSuccess(HttpServletRequest request) {
+        String currentUsername = OnionUtils.getCurrentUser().getUsername();
+        // update last login time
+        this.userService.updateLoginTime(currentUsername);
+        // save login log
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUsername(currentUsername);
+        loginLog.setSystemBrowserInfo(request.getHeader("user-agent"));
+        this.loginLogService.saveLoginLog(loginLog);
+    }
+
+
+
 }

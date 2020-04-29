@@ -1,12 +1,19 @@
 package com.onion.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onion.entity.CurrentUser;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +22,7 @@ import java.util.regex.Pattern;
  * @Author: gyc
  * @Date: 2020/3/19 10:49
  */
-
+@Slf4j
 public class OnionUtils {
     private static final String UNKNOW = "unknown";
 
@@ -75,5 +82,36 @@ public class OnionUtils {
             ip = request.getRemoteAddr();
         }
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+    }
+
+
+
+    private static OAuth2Authentication getOauth2Authentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (OAuth2Authentication) authentication;
+    }
+
+    @SuppressWarnings("all")
+    private static LinkedHashMap<String, Object> getAuthenticationDetails() {
+        return (LinkedHashMap<String, Object>) getOauth2Authentication().getUserAuthentication().getDetails();
+    }
+
+
+
+    /**
+     * 获取在线用户信息
+     *
+     * @return CurrentUser 当前用户信息
+     */
+    public static CurrentUser getCurrentUser() {
+        try {
+            LinkedHashMap<String, Object> authenticationDetails = getAuthenticationDetails();
+            Object principal = authenticationDetails.get("principal");
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(mapper.writeValueAsString(principal), CurrentUser.class);
+        } catch (Exception e) {
+            log.error("获取当前用户信息失败", e);
+            return null;
+        }
     }
 }
